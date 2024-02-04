@@ -1,4 +1,24 @@
+
 const video = document.getElementById("video");
+let present = []; // Array to store unique values of 'val'
+
+function downloadPresentList() {
+  sessionStorage.setItem("myPresent", present);
+  const presentText = present.join('\n');
+  const blob = new Blob([presentText], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'present_list.txt';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+// Add event listener to the download button
+document.getElementById('downloadButton').addEventListener('click', downloadPresentList);
 
 Promise.all([
   faceapi.nets.ssdMobilenetv1.loadFromUri("/models"),
@@ -61,12 +81,26 @@ video.addEventListener("play", async () => {
     const results = resizedDetections.map((d) => {
       return faceMatcher.findBestMatch(d.descriptor);
     });
+
     results.forEach((result, i) => {
       const box = resizedDetections[i].detection.box;
       const drawBox = new faceapi.draw.DrawBox(box, {
         label: result,
       });
       drawBox.draw(canvas);
+
+      // Update 'val' with the result label
+      const val = result.label;
+
+      // Check if 'val' is not already in 'present' array
+      if (val !== 'unknown' && !present.includes(val)) {
+        // Store unique value in the 'present' array
+        present.push(val);
+
+        // Log the updated 'present' array
+        console.log('Present Array:', present);
+      }
+
     });
   }, 100);
 });

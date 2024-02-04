@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="mark-styles.css">
+    <title>Mark Attendance</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Mark Attendance</h1>
+        <form id="downloadForm">
+            <label for="className">Class Name:</label>
+            <input type="text" id="className" name="className" required>
+
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+
+            <button type="button" onclick="window.location.href = 'index.html';">Generate Attendance</button>
+        </form>
+
+        <div id="downloadLink" style="display: none;">
+            <a id="downloadButton" download="generated_file.txt">
+                <button>Download Attendance</button>
+            </a>
+        </div>
+    </div>
+
+    <script src="mark-script.js"></script>
+</body>
+</html>
