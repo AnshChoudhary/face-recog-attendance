@@ -2,8 +2,8 @@
 const video = document.getElementById("video");
 let present = []; // Array to store unique values of 'val'
 
+/*
 function downloadPresentList() {
-  sessionStorage.setItem("myPresent", present);
   const presentText = present.join('\n');
   const blob = new Blob([presentText], { type: 'text/plain' });
   const url = URL.createObjectURL(blob);
@@ -19,6 +19,18 @@ function downloadPresentList() {
 
 // Add event listener to the download button
 document.getElementById('downloadButton').addEventListener('click', downloadPresentList);
+*/
+
+function openAnotherPageWithPresentList() {
+  // Create a URL with the 'present' array as a query parameter
+  const presentQueryParam = encodeURIComponent(JSON.stringify(present));
+  const url = `sheet.html?present=${presentQueryParam}`;
+
+  // Open the new page
+  window.location.href = url;
+}
+
+document.getElementById('downloadButton').addEventListener('click', openAnotherPageWithPresentList);
 
 Promise.all([
   faceapi.nets.ssdMobilenetv1.loadFromUri("/models"),
