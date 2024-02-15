@@ -1,12 +1,18 @@
-// Retrieve the 'present' array from the query parameter
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-const presentQueryParam = urlParams.get('present');
-const presentArray = JSON.parse(decodeURIComponent(presentQueryParam));
+function openAnotherPageWithPresentList() {
+    const className = document.getElementById("className").value;
+    const date = document.getElementById("date").value;
 
-
-// Now you can use the 'presentArray' as needed on this page
-console.log(presentArray);
+    // Example content to be downloaded
+    const content = `Class Name: ${className}\nDate: ${date}`;
+    // Create a URL with the 'present' array as a query parameter
+    const infoQueryParam = encodeURIComponent(JSON.stringify(content));
+    const url = `sheet.html?content=${infoQueryParam}`;
+  
+    // Open the new page
+    window.location.href = url;
+  }
+  
+  document.getElementById('downloadButton').addEventListener('click', openAnotherPageWithPresentList);
 
 function generateDownload() {
     const className = document.getElementById("className").value;
