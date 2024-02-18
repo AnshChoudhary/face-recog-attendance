@@ -1,6 +1,6 @@
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
-const presentQueryParam = urlParams.get('present');
+const presentQueryParam = urlParams.get('marked');
 const presentArray = JSON.parse(decodeURIComponent(presentQueryParam));
 
 

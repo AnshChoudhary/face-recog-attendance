@@ -1,7 +1,8 @@
 
 const video = document.getElementById("video");
 let present = []; // Array to store unique values of 'val'
-
+const marked = [];
+const markedFlags = {};
 /*
 function downloadPresentList() {
   const presentText = present.join('\n');
@@ -23,8 +24,8 @@ document.getElementById('downloadButton').addEventListener('click', downloadPres
 
 function openAnotherPageWithPresentList() {
   // Create a URL with the 'present' array as a query parameter
-  const presentQueryParam = encodeURIComponent(JSON.stringify(present));
-  const url = `sheet.html?present=${presentQueryParam}`;
+  const presentQueryParam = encodeURIComponent(JSON.stringify(marked));
+  const url = `sheet.html?marked=${presentQueryParam}`;
 
   // Open the new page
   window.location.href = url;
@@ -53,7 +54,7 @@ function startWebcam() {
 }
 
 function getLabeledFaceDescriptions() {
-  const labels = ["Ansh", "Messi", "Mbappe"];
+  const labels = ["Ansh", "Messi", "Mbappe", "Rahul", "Yousuf", "Abhishek"];
   return Promise.all(
     labels.map(async (label) => {
       const descriptions = [];
@@ -104,13 +105,36 @@ video.addEventListener("play", async () => {
       // Update 'val' with the result label
       const val = result.label;
 
-      // Check if 'val' is not already in 'present' array
-      if (val !== 'unknown' && !present.includes(val)) {
-        // Store unique value in the 'present' array
-        present.push(val);
+      // Check if val is not equal to 'unknown' and if the count of val is less than 25 in the present array
+      if (val !== 'unknown') {
+        // Count the occurrences of val in the present array
+        const valCount = present.filter(item => item === val).length;
 
-        // Log the updated 'present' array
-        console.log('Present Array:', present);
+        // Check if the count for the current value is less than 25
+        if (valCount < 25) {
+          // Push the value to the array
+          present.push(val);
+
+          // Log the updated 'present' array
+          console.log('Present Array:', present);
+        }
+      }
+      const counter = {};
+ 
+      present.forEach(ele => {
+          if (counter[ele]) {
+              counter[ele] += 1;
+          } else {
+              counter[ele] = 1;
+          }
+      });
+      
+      for (const key in counter) {
+        if (counter[key] >= 25 && !markedFlags[key]) {
+          marked.push(key);
+          markedFlags[key] = true; // Set the flag to true to indicate it has been marked
+          console.log('Marked Array:', marked);
+        }
       }
 
     });
