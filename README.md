@@ -1,5 +1,5 @@
 # Attendance WebApp with Face Recognition
-
+![Screenshot from WebApp](https://github.com/AnshChoudhary/face-recog-attendance/blob/main/webapp-ss.png)
 ## Overview
 This project aims to develop a web application for taking attendance using face recognition technology. The application targets professors or instructors who need an efficient and automated way to track attendance in classrooms or other educational settings.
 
