@@ -3,7 +3,10 @@ const urlParams = new URLSearchParams(queryString);
 const presentQueryParam = urlParams.get('marked');
 const presentArray = JSON.parse(decodeURIComponent(presentQueryParam));
 
-
+const queryString2 = window.location.search;
+const urlParams2 = new URLSearchParams(queryString2);
+const contentQueryParam = urlParams2.get('content');
+const contentArray = JSON.parse(decodeURIComponent(presentQueryParam));
 
 // Function to populate the table with names
 function populateTable() {

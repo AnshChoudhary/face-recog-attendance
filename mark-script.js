@@ -14,6 +14,19 @@ function openAnotherPageWithPresentList() {
   
   document.getElementById('downloadButton').addEventListener('click', openAnotherPageWithPresentList);
 
+  function openAnotherPageWithcontent() {
+    const className = document.getElementById("className").value;
+    const date = document.getElementById("date").value;
+
+    // Store the strings in local storage
+    localStorage.setItem('className', className);
+    localStorage.setItem('date', date);
+
+    // Open the new page
+    window.location.href = 'sheet.html';
+}
+
+
 function generateDownload() {
     const className = document.getElementById("className").value;
     const date = document.getElementById("date").value;
